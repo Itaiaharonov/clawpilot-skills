@@ -1,6 +1,6 @@
 ---
 name: "compete"
-description: "Deep technical cybersecurity competitive analysis — compare Microsoft Security vs any named vendor with referenced feature-to-feature tables, roadmap comparison, and multi-format deliverables (tables, diagrams, presentations, documents)."
+description: "Deep technical cybersecurity competitive analysis — compare Microsoft Security vs any named vendor with internal compete portal intelligence, referenced feature-to-feature tables, pricing with confidence levels (✅/🟡/🔴), roadmap comparison, and multi-format deliverables (tables, diagrams, presentations, documents)."
 ---
 
 
@@ -17,6 +17,31 @@ The user will say something like "/compete [Vendor Name]" or "/compete CrowdStri
 ### Phase 1: Gather Intelligence (parallel where possible)
 
 **1a. Internal Microsoft Intelligence**
+
+**Step 1 — Internal Compete Portals (browser automation)**
+Navigate to these internal Microsoft compete portals using `playwright-browser_navigate` and extract relevant battle cards, competitive briefs, and positioning guidance for the specific competitor:
+
+| Portal | URL | What to Extract |
+|---|---|---|
+| **Security Compete Hub** | `https://aka.ms/securitycompete` | Battle cards, competitive briefs, win/loss analysis for [competitor] |
+| **MCAPS Compete Resources** | `https://aka.ms/mcapscompete` | Sales plays, objection handling, customer-facing compete decks |
+| **Security Sales Playbook** | `https://aka.ms/securityplaybook` | Positioning guidance, technical differentiators, demo scripts |
+| **M365 Compete Center** | `https://microsoft.sharepoint.com/teams/M365Compete` | M365 Security competitive analysis, E5 positioning vs competitors |
+| **Defender for Cloud Compete** | `https://aka.ms/defendercompete` | Cloud security / CNAPP competitive positioning |
+| **Sentinel Compete** | `https://aka.ms/sentinelcompete` | SIEM/SOAR competitive positioning |
+| **Gartner Access (MS Internal)** | `https://aka.ms/gartneraccess` | Gartner Magic Quadrant, Critical Capabilities, Market Guide references |
+| **Forrester Access (MS Internal)** | `https://aka.ms/forresteraccess` | Forrester Wave reports relevant to security domains |
+
+For each portal:
+1. Navigate to the URL
+2. Search for the specific competitor name
+3. Extract key findings: competitive strengths, weaknesses, recommended positioning, win themes
+4. Note the publication date — flag anything older than 6 months as potentially stale
+5. If a portal URL fails or redirects, skip it silently and move on
+
+> ⚠️ **Note:** Some aka.ms links may redirect or require specific permissions. If a portal is inaccessible, log it and continue with other sources. Never block the entire workflow on a single portal failure.
+
+**Step 2 — User's M365 Data**
 - Search the user's M365 data (emails, Teams chats, meetings, OneDrive/SharePoint files) for any prior competitive intelligence, battle cards, or internal discussions about this competitor:
   - Use WorkIQ: `workiq.cmd ask -q "competitive analysis [competitor] cybersecurity"` and `workiq.cmd ask -q "[competitor] battle card security"`
   - Search emails: `m365_search_emails` for emails mentioning the competitor name
@@ -147,16 +172,31 @@ For EACH sub-topic, produce a comparison table with:
 
 This section is ALWAYS required. Go beyond high-level summaries. Produce a detailed pricing analysis covering ALL of the following:
 
+> ### ⚠️ Pricing Data Accuracy Disclaimer
+> Every pricing table MUST include a **Data Confidence** column with one of:
+> - ✅ **Verified** — pulled from official public pricing page with URL (e.g., azure.microsoft.com/pricing/)
+> - 🟡 **Estimated** — derived from analyst reports, G2/Gartner reviews, or public customer testimonials. Source cited but numbers may be approximate or outdated.
+> - 🔴 **Unverified** — competitor does not publish pricing ("contact sales"). Number is a rough industry estimate or unavailable.
+>
+> **At the end of every pricing section, include this notice:**
+> ```
+> 📌 Pricing Accuracy Notice: Microsoft pricing is sourced from official public pricing
+> pages and is current as of [date]. Competitor pricing marked as 🟡 Estimated or
+> 🔴 Unverified should NOT be used in customer-facing materials without independent
+> verification. Always confirm competitor pricing through customer-provided quotes
+> or official competitor documentation before presenting in a competitive scenario.
+> ```
+
 **3c-1. Licensing Model Comparison**
 ```
-| Aspect | Microsoft | [Competitor] | Source |
-|---|---|---|---|
-| Pricing model | Per-resource / per-seat / bundled | Per-workload / per-agent / custom | [URLs] |
-| Billing frequency | Monthly / annual / consumption-based | Annual commitment / monthly | [URLs] |
-| Free tier | What's included for free | What's included for free | [URLs] |
-| Trial period | Duration and scope | Duration and scope | [URLs] |
-| Minimum commitment | Any minimums | Any minimums | [URLs] |
-| Price transparency | Public pricing available? | Public pricing available? | [URLs] |
+| Aspect | Microsoft | [Competitor] | Data Confidence | Source |
+|---|---|---|---|---|
+| Pricing model | Per-resource / per-seat / bundled | Per-workload / per-agent / custom | ✅/🟡/🔴 | [URLs] |
+| Billing frequency | Monthly / annual / consumption-based | Annual commitment / monthly | ✅/🟡/🔴 | [URLs] |
+| Free tier | What's included for free | What's included for free | ✅/🟡/🔴 | [URLs] |
+| Trial period | Duration and scope | Duration and scope | ✅/🟡/🔴 | [URLs] |
+| Minimum commitment | Any minimums | Any minimums | ✅/🟡/🔴 | [URLs] |
+| Price transparency | Public pricing available? | Public pricing available? | ✅/🟡/🔴 | [URLs] |
 ```
 
 **3c-2. SKU & Plan Breakdown**
@@ -194,10 +234,11 @@ Build 3 representative TCO scenarios and compare total annual cost:
 | **Large** | 10,000 VMs, 200 K8s clusters, 3 cloud providers, 1,000 databases, extensive AI |
 
 For each scenario, estimate:
-- Microsoft total annual cost (itemized by plan)
-- Competitor total annual cost (if estimable)
-- Delta and % savings
+- Microsoft total annual cost (itemized by plan) — mark each line item ✅ Verified
+- Competitor total annual cost (if estimable) — mark each line item with appropriate confidence level
+- Delta and % savings — **only present delta if both sides have ✅ or 🟡 confidence**
 - What the customer gets with Microsoft that they DON'T get with the competitor (and vice versa)
+- If competitor pricing is 🔴 Unverified, state: "TCO comparison not possible — competitor pricing requires a direct quote"
 
 **3c-5. Hidden Costs & Considerations**
 - Data ingestion costs (Sentinel log ingestion vs competitor SIEM needs)
@@ -309,5 +350,7 @@ If the user mentions a specific customer context, save the compete materials to 
 - **Check E5/E3 bundling** — Microsoft's licensing bundling is often a major competitive advantage. Always mention relevant licensing.
 - **AI Security is a priority** — The Security for AI section (Phase 3b) must be thorough and technically deep. This is an increasingly critical differentiator in every competitive deal.
 - **Pricing wins deals** — The Pricing deep dive (Phase 3c) must include concrete numbers where possible. TCO scenarios are especially valuable for customer conversations.
+- **Pricing honesty is non-negotiable** — Always tag pricing data with a confidence level (✅ Verified / 🟡 Estimated / 🔴 Unverified). Never present estimated competitor pricing as fact. Include the Pricing Accuracy Notice disclaimer in every pricing section.
+- **Internal portals first** — Always attempt to pull from Microsoft internal compete portals (Phase 1a) before relying solely on public web data. Internal battle cards often contain positioning guidance, win themes, and objection handling that public sources miss. If a portal is inaccessible, skip it and note it in the summary.
 - **Architecture diagrams are mandatory** — Phase 8 always executes. Visuals are essential for customer-facing compete materials and internal understanding of platform differences.
 
