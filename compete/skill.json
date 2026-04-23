@@ -1,0 +1,30 @@
+{
+  "name": "compete",
+  "description": "Deep technical cybersecurity competitive analysis — compare Microsoft Security vs any named vendor with referenced feature-to-feature tables, roadmap comparison, and multi-format deliverables (tables, diagrams, presentations, documents).",
+  "version": "2.0.0",
+  "author": "Itai Aharonov",
+  "triggers": [
+    "/compete",
+    "compete",
+    "competitive analysis",
+    "compare Microsoft vs",
+    "battle card",
+    "compete against"
+  ],
+  "requirements": {
+    "clawpilot": ">=1.0.0",
+    "tools": [
+      "web_fetch",
+      "m365_search_emails",
+      "m365_search_files",
+      "m365_search_chats",
+      "excalidraw (bundled skill)"
+    ],
+    "optional_tools": [
+      "WorkIQ",
+      "pptx (bundled skill)",
+      "docx (bundled skill)",
+      "xlsx (bundled skill)"
+    ]
+  }
+}
