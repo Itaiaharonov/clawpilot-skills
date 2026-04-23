@@ -7,30 +7,7 @@ description: "Deep technical cybersecurity competitive analysis — compare Micr
 # /compete — Cybersecurity Competitive Analysis Skill
 
 ## Purpose
-Produce a thorough, technically deep competitive analysis comparing **Microsoft Security** capabilities against a named competitor/vendor **in the cybersecurity space**. Every claim must be referenced with a source link for credibility verification.
-
-> 🛡️ **This is a CYBERSECURITY-ONLY skill.** It compares Microsoft's Security portfolio (Defender, Sentinel, Entra, Purview, Copilot for Security, etc.) against cybersecurity competitors. It does NOT cover general technology comparisons (e.g., Azure vs AWS compute, M365 vs Google Workspace productivity, Dynamics vs Salesforce CRM). If the user asks for a non-security comparison, inform them that this skill is scoped to cybersecurity and suggest they research the other domain separately.
-
-## Scope — Cybersecurity Domains Only
-
-This skill covers competitive analysis across these **cybersecurity domains**:
-
-| Domain | Microsoft Product | Example Competitors |
-|---|---|---|
-| Endpoint Security (EDR/XDR) | Defender for Endpoint, Defender XDR | CrowdStrike Falcon, SentinelOne, Palo Alto Cortex XDR |
-| SIEM / Security Analytics | Microsoft Sentinel | Splunk, IBM QRadar, Google Chronicle, Elastic SIEM |
-| Identity & Access (IAM/IGA) | Microsoft Entra ID | Okta, Ping Identity, CyberArk, SailPoint |
-| Cloud Security (CNAPP/CSPM/CWPP) | Defender for Cloud | Wiz, Palo Alto Prisma Cloud, Orca, Lacework |
-| Email & Collaboration Security | Defender for Office 365 | Proofpoint, Mimecast, Abnormal Security |
-| Network Security (SASE/SSE) | Entra Internet/Private Access | Zscaler, Palo Alto Prisma Access, Netskope |
-| Data Security / DLP | Microsoft Purview | Symantec DLP, Forcepoint, Digital Guardian |
-| Threat Intelligence | Microsoft Threat Intelligence | Recorded Future, Mandiant, CrowdStrike Intel |
-| Security Operations (SOAR) | Sentinel + Copilot for Security | Palo Alto XSOAR, Splunk SOAR, Swimlane |
-| IoT/OT Security | Defender for IoT | Claroty, Nozomi Networks, Armis |
-| Vulnerability Management | Defender Vulnerability Management | Tenable, Qualys, Rapid7 |
-| Security for AI | Defender for Cloud AI, Content Safety | Wiz AI-SPM, HiddenLayer, Protect AI |
-
-**Out of scope:** Azure infrastructure (compute, storage, networking), Microsoft 365 productivity (Teams, SharePoint, Exchange as collaboration tools), Dynamics 365, Power Platform, GitHub (unless GitHub Advanced Security for DevSecOps), Windows OS features (unless security-specific like BitLocker, Windows Hello).
+Produce a thorough, technically deep competitive analysis comparing **Microsoft Security** capabilities against a named competitor/vendor in the cybersecurity space. Every claim must be referenced with a source link for credibility verification.
 
 ## Trigger
 The user will say something like "/compete [Vendor Name]" or "/compete CrowdStrike" or "compare Microsoft vs Palo Alto in security". Extract the competitor name and begin the workflow.
@@ -40,31 +17,6 @@ The user will say something like "/compete [Vendor Name]" or "/compete CrowdStri
 ### Phase 1: Gather Intelligence (parallel where possible)
 
 **1a. Internal Microsoft Intelligence**
-
-**Step 1 — Internal Compete Portals (browser automation)**
-Navigate to these internal Microsoft compete portals using `playwright-browser_navigate` and extract relevant battle cards, competitive briefs, and positioning guidance for the specific competitor:
-
-| Portal | URL | What to Extract |
-|---|---|---|
-| **Security Compete Hub** | `https://aka.ms/securitycompete` | Battle cards, competitive briefs, win/loss analysis for [competitor] |
-| **MCAPS Compete Resources** | `https://aka.ms/mcapscompete` | Sales plays, objection handling, customer-facing compete decks |
-| **Security Sales Playbook** | `https://aka.ms/securityplaybook` | Positioning guidance, technical differentiators, demo scripts |
-| **M365 Compete Center** | `https://microsoft.sharepoint.com/teams/M365Compete` | M365 Security competitive analysis, E5 positioning vs competitors |
-| **Defender for Cloud Compete** | `https://aka.ms/defendercompete` | Cloud security / CNAPP competitive positioning |
-| **Sentinel Compete** | `https://aka.ms/sentinelcompete` | SIEM/SOAR competitive positioning |
-| **Gartner Access (MS Internal)** | `https://aka.ms/gartneraccess` | Gartner Magic Quadrant, Critical Capabilities, Market Guide references |
-| **Forrester Access (MS Internal)** | `https://aka.ms/forresteraccess` | Forrester Wave reports relevant to security domains |
-
-For each portal:
-1. Navigate to the URL
-2. Search for the specific competitor name
-3. Extract key findings: competitive strengths, weaknesses, recommended positioning, win themes
-4. Note the publication date — flag anything older than 6 months as potentially stale
-5. If a portal URL fails or redirects, skip it silently and move on
-
-> ⚠️ **Note:** Some aka.ms links may redirect or require specific permissions. If a portal is inaccessible, log it and continue with other sources. Never block the entire workflow on a single portal failure.
-
-**Step 2 — User's M365 Data**
 - Search the user's M365 data (emails, Teams chats, meetings, OneDrive/SharePoint files) for any prior competitive intelligence, battle cards, or internal discussions about this competitor:
   - Use WorkIQ: `workiq.cmd ask -q "competitive analysis [competitor] cybersecurity"` and `workiq.cmd ask -q "[competitor] battle card security"`
   - Search emails: `m365_search_emails` for emails mentioning the competitor name
@@ -195,31 +147,16 @@ For EACH sub-topic, produce a comparison table with:
 
 This section is ALWAYS required. Go beyond high-level summaries. Produce a detailed pricing analysis covering ALL of the following:
 
-> ### ⚠️ Pricing Data Accuracy Disclaimer
-> Every pricing table MUST include a **Data Confidence** column with one of:
-> - ✅ **Verified** — pulled from official public pricing page with URL (e.g., azure.microsoft.com/pricing/)
-> - 🟡 **Estimated** — derived from analyst reports, G2/Gartner reviews, or public customer testimonials. Source cited but numbers may be approximate or outdated.
-> - 🔴 **Unverified** — competitor does not publish pricing ("contact sales"). Number is a rough industry estimate or unavailable.
->
-> **At the end of every pricing section, include this notice:**
-> ```
-> 📌 Pricing Accuracy Notice: Microsoft pricing is sourced from official public pricing
-> pages and is current as of [date]. Competitor pricing marked as 🟡 Estimated or
-> 🔴 Unverified should NOT be used in customer-facing materials without independent
-> verification. Always confirm competitor pricing through customer-provided quotes
-> or official competitor documentation before presenting in a competitive scenario.
-> ```
-
 **3c-1. Licensing Model Comparison**
 ```
-| Aspect | Microsoft | [Competitor] | Data Confidence | Source |
-|---|---|---|---|---|
-| Pricing model | Per-resource / per-seat / bundled | Per-workload / per-agent / custom | ✅/🟡/🔴 | [URLs] |
-| Billing frequency | Monthly / annual / consumption-based | Annual commitment / monthly | ✅/🟡/🔴 | [URLs] |
-| Free tier | What's included for free | What's included for free | ✅/🟡/🔴 | [URLs] |
-| Trial period | Duration and scope | Duration and scope | ✅/🟡/🔴 | [URLs] |
-| Minimum commitment | Any minimums | Any minimums | ✅/🟡/🔴 | [URLs] |
-| Price transparency | Public pricing available? | Public pricing available? | ✅/🟡/🔴 | [URLs] |
+| Aspect | Microsoft | [Competitor] | Source |
+|---|---|---|---|
+| Pricing model | Per-resource / per-seat / bundled | Per-workload / per-agent / custom | [URLs] |
+| Billing frequency | Monthly / annual / consumption-based | Annual commitment / monthly | [URLs] |
+| Free tier | What's included for free | What's included for free | [URLs] |
+| Trial period | Duration and scope | Duration and scope | [URLs] |
+| Minimum commitment | Any minimums | Any minimums | [URLs] |
+| Price transparency | Public pricing available? | Public pricing available? | [URLs] |
 ```
 
 **3c-2. SKU & Plan Breakdown**
@@ -257,11 +194,10 @@ Build 3 representative TCO scenarios and compare total annual cost:
 | **Large** | 10,000 VMs, 200 K8s clusters, 3 cloud providers, 1,000 databases, extensive AI |
 
 For each scenario, estimate:
-- Microsoft total annual cost (itemized by plan) — mark each line item ✅ Verified
-- Competitor total annual cost (if estimable) — mark each line item with appropriate confidence level
-- Delta and % savings — **only present delta if both sides have ✅ or 🟡 confidence**
+- Microsoft total annual cost (itemized by plan)
+- Competitor total annual cost (if estimable)
+- Delta and % savings
 - What the customer gets with Microsoft that they DON'T get with the competitor (and vice versa)
-- If competitor pricing is 🔴 Unverified, state: "TCO comparison not possible — competitor pricing requires a direct quote"
 
 **3c-5. Hidden Costs & Considerations**
 - Data ingestion costs (Sentinel log ingestion vs competitor SIEM needs)
@@ -311,23 +247,58 @@ Present the FULL analysis in the chat with full markdown tables and formatting, 
 - Strengths & Weaknesses (Phase 4)
 - Strategic Recommendations (Phase 5)
 
-### Phase 7: Additional Deliverables (ask user)
+### Phase 7: Additional Deliverables — DELEGATE TO OTHER SKILLS
 
-Ask the user which additional file deliverables they want:
+After delivering the chat analysis, set up a working folder and ask the user which file deliverables they want. **Do NOT hand-roll build scripts.** Always delegate to the dedicated skills below by calling `m_get_skill(name)` first to load that skill's full instructions, then follow them.
 
-1. **📊 Excel spreadsheet** (`/xlsx`) — Full feature comparison matrix with tabs per category, color-coded advantage column, all reference links as hyperlinks. Include a dedicated "AI Security" tab and a "Pricing & TCO" tab with formulas.
-2. **📄 Word document** (`/docx`) — Professional compete report with executive summary, detailed comparison tables, AI security analysis, pricing deep dive, and strategic recommendations
-3. **📑 PowerPoint deck** (`/pptx`) — Customer-facing or internal presentation with comparison slides, architecture diagrams, AI security positioning, and key differentiators
-4. **🎨 Architecture diagrams** (`/excalidraw`) — Individual architecture diagrams for EACH vendor (see Phase 8)
-5. **🗂️ All of the above** — Generate the complete package
+**Working folder:** `Clawpilot\compete-[competitor]\` (or the customer engagement repo's `compete\` subfolder when a customer is named)
 
-Use the appropriate skill for each deliverable by invoking it.
+**Deliverable → Skill mapping (MANDATORY):**
+
+| Deliverable | Skill to invoke | Output filename |
+|---|---|---|
+| 📊 Excel feature/pricing matrix | **`/xlsx`** — call `m_get_skill("xlsx")` | `[Competitor]-Compete-Matrix.xlsx` |
+| 📄 Word compete report | **`/docx`** — call `m_get_skill("docx")` | `[Competitor]-Compete-Report.docx` |
+| 📑 PowerPoint deck | **`/pptx`** — call `m_get_skill("pptx")` | `[Competitor]-Compete-Deck.pptx` |
+| 🎨 Architecture diagrams (×3) | **`/excalidraw`** — call `m_get_skill("excalidraw")` (see Phase 8) | `[competitor]-compete-*.excalidraw` |
+| 🏗️ Optional Azure/AWS-icon arch diagram | **`/architecture`** — call `m_get_skill("architecture")` | `architecture/[competitor]-vs-ms.drawio` |
+
+**Ask the user:**
+
+```
+1. 📊 Excel matrix (/xlsx)
+2. 📄 Word report (/docx)
+3. 📑 PowerPoint deck (/pptx)
+4. 🎨 Excalidraw architecture diagrams (always generated — see Phase 8)
+5. 🗂️ All of the above
+```
+
+Use `m_ask_user` to present these as structured choices.
+
+**Build process for each selected deliverable:**
+
+1. Call `m_get_skill("[skill-name]")` to load that skill's instructions and resource paths.
+2. Follow that skill's documented build process (it owns the templates, helper scripts, color palettes, slide layouts, etc.).
+3. Save the output to the working folder above with the filename from the table.
+4. Verify the file exists and report its size in the final summary.
+
+**Do NOT:**
+- Write your own ad-hoc Python/Node build scripts when the skill provides them
+- Bypass the skill's templates or styling conventions
+- Use a generic library directly when the skill wraps it
+
+**DO:**
+- Reuse the structured content from the chat analysis (Phase 3–5) as the source of truth for every deliverable
+- Pass the same comparison tables, pricing tables, and S&W summary into each skill so all deliverables stay consistent
+- Let each skill's defaults (fonts, colors, slide masters, sheet styling) drive the look — don't override unless the user asks
 
 ### Phase 8: 🏗️ Architecture Diagrams — MANDATORY
 
 This phase is ALWAYS executed, regardless of whether the user selects it in Phase 7. Architecture diagrams are a core deliverable of every compete analysis.
 
-Generate **THREE separate Excalidraw diagrams** using the `/excalidraw` skill:
+**Always invoke `/excalidraw` first**: call `m_get_skill("excalidraw")` and follow its instructions to build THREE diagrams. If the user explicitly asks for Azure/AWS-icon production diagrams instead of (or in addition to) sketch-style, also invoke `/architecture` (`m_get_skill("architecture")`).
+
+Generate **THREE separate Excalidraw diagrams**:
 
 **Diagram 1: Microsoft Security Architecture**
 - Show the complete Microsoft Security platform architecture
@@ -356,15 +327,21 @@ Generate **THREE separate Excalidraw diagrams** using the `/excalidraw` skill:
 - Bottom section with pricing/licensing comparison summary
 - File: `[competitor]-compete-comparison-architecture.excalidraw`
 
-For each diagram, also export a PNG version for easy sharing.
+PNG export of `.excalidraw` files is OPTIONAL and only run if the user requests it (uses the aka.ms/excalidraw browser flow documented in the excalidraw skill).
 
 ### Phase 9: Save to Customer Repo (if applicable)
 
-If the user mentions a specific customer context, save the compete materials to the relevant customer engagement repo under a `compete/` subfolder.
+If the user mentions a specific customer context, save the compete materials to the relevant customer engagement repo under a `compete/` subfolder instead of `Clawpilot\compete-[competitor]\`.
+
+### Phase 10: Final Summary
+
+After all selected deliverables are built, send the user a single summary message containing:
+- A table of every file produced with its absolute path and size
+- Which skill produced each file (so the user knows where to go for edits)
+- Any optional follow-ups (PNG export, push to customer repo, share via Teams/email)
 
 ## Important Guidelines
 
-- **Cybersecurity only** — This skill is exclusively for cybersecurity competitive analysis. If the competitor or comparison domain is not cybersecurity-related, stop and inform the user: "⚠️ /compete is scoped to cybersecurity. [Topic] is outside this skill's scope."
 - **Be technically deep** — this is for a Security Specialist, not a generalist. Include API details, architecture nuances, deployment models, and integration specifics.
 - **Be current** — always check for the latest announcements. The security landscape changes rapidly.
 - **Be honest** — never fabricate advantages. If Microsoft is behind in an area, say so and mention if it's on the roadmap.
@@ -374,7 +351,6 @@ If the user mentions a specific customer context, save the compete materials to 
 - **Check E5/E3 bundling** — Microsoft's licensing bundling is often a major competitive advantage. Always mention relevant licensing.
 - **AI Security is a priority** — The Security for AI section (Phase 3b) must be thorough and technically deep. This is an increasingly critical differentiator in every competitive deal.
 - **Pricing wins deals** — The Pricing deep dive (Phase 3c) must include concrete numbers where possible. TCO scenarios are especially valuable for customer conversations.
-- **Pricing honesty is non-negotiable** — Always tag pricing data with a confidence level (✅ Verified / 🟡 Estimated / 🔴 Unverified). Never present estimated competitor pricing as fact. Include the Pricing Accuracy Notice disclaimer in every pricing section.
-- **Internal portals first** — Always attempt to pull from Microsoft internal compete portals (Phase 1a) before relying solely on public web data. Internal battle cards often contain positioning guidance, win themes, and objection handling that public sources miss. If a portal is inaccessible, skip it and note it in the summary.
 - **Architecture diagrams are mandatory** — Phase 8 always executes. Visuals are essential for customer-facing compete materials and internal understanding of platform differences.
+- **Always delegate file production to the dedicated skill** — `/xlsx`, `/docx`, `/pptx`, `/excalidraw`, `/architecture`. Never roll your own build scripts when a skill exists. Load the skill via `m_get_skill(name)` before producing the file.
 
