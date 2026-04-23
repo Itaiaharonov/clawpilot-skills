@@ -253,28 +253,45 @@ After the in-chat analysis, you'll be asked which additional deliverables you wa
 
 ### Option 1: Copy the skill folder
 
-```bash
-# Windows
+**Windows (PowerShell)**
+```powershell
 xcopy /E /I "compete" "%USERPROFILE%\.copilot\m-skills\compete"
+```
 
-# macOS / Linux
+**macOS / Linux (Terminal)**
+```bash
+mkdir -p ~/.copilot/m-skills
 cp -r compete ~/.copilot/m-skills/compete
 ```
 
 ### Option 2: Clone the full repo
 
-```bash
-git clone https://github.com/itaiah/clawpilot-skills.git
+**Windows (PowerShell)**
+```powershell
+git clone https://github.com/Itaiaharonov/clawpilot-skills.git
 cd clawpilot-skills
-
-# Windows
 xcopy /E /I "compete" "%USERPROFILE%\.copilot\m-skills\compete"
+```
 
-# macOS / Linux
+**macOS / Linux (Terminal)**
+```bash
+git clone https://github.com/Itaiaharonov/clawpilot-skills.git
+cd clawpilot-skills
+mkdir -p ~/.copilot/m-skills
 cp -r compete ~/.copilot/m-skills/compete
 ```
 
-### Option 3: Manual install via Clawpilot UI
+### Option 3: One-liner install (macOS / Linux)
+
+```bash
+git clone https://github.com/Itaiaharonov/clawpilot-skills.git /tmp/clawpilot-skills \
+  && mkdir -p ~/.copilot/m-skills \
+  && cp -r /tmp/clawpilot-skills/compete ~/.copilot/m-skills/ \
+  && rm -rf /tmp/clawpilot-skills \
+  && echo "✅ /compete skill installed!"
+```
+
+### Option 4: Manual install via Clawpilot UI
 
 1. Open Clawpilot
 2. Go to **Settings → Skills → Create New Skill**

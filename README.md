@@ -34,30 +34,56 @@
 
 #### Option 1: Copy a single skill
 
-```bash
-# Windows
+**Windows (PowerShell)**
+```powershell
 xcopy /E /I "compete" "%USERPROFILE%\.copilot\m-skills\compete"
+```
 
-# macOS / Linux
+**macOS / Linux (Terminal)**
+```bash
+# Create the skills directory if it doesn't exist
+mkdir -p ~/.copilot/m-skills
+
+# Copy the skill
 cp -r compete ~/.copilot/m-skills/compete
 ```
 
 #### Option 2: Clone the entire repo
 
-```bash
-git clone https://github.com/itaiah/clawpilot-skills.git
+**Windows (PowerShell)**
+```powershell
+git clone https://github.com/Itaiaharonov/clawpilot-skills.git
 cd clawpilot-skills
 
-# Windows — install all skills at once
+# Install all skills at once
 for /d %s in (*) do if exist "%s\skill.json" xcopy /E /I "%s" "%USERPROFILE%\.copilot\m-skills\%s"
+```
 
-# macOS / Linux
+**macOS / Linux (Terminal)**
+```bash
+git clone https://github.com/Itaiaharonov/clawpilot-skills.git
+cd clawpilot-skills
+
+# Create the skills directory if it doesn't exist
+mkdir -p ~/.copilot/m-skills
+
+# Install all skills at once
 for skill in */; do
-  [ -f "$skill/skill.json" ] && cp -r "$skill" ~/.copilot/m-skills/
+  [ -f "${skill}skill.json" ] && cp -r "$skill" ~/.copilot/m-skills/
 done
 ```
 
-#### Option 3: Manual install via Clawpilot UI
+#### Option 3: One-liner install (macOS / Linux)
+
+```bash
+git clone https://github.com/Itaiaharonov/clawpilot-skills.git /tmp/clawpilot-skills \
+  && mkdir -p ~/.copilot/m-skills \
+  && cp -r /tmp/clawpilot-skills/compete ~/.copilot/m-skills/ \
+  && rm -rf /tmp/clawpilot-skills \
+  && echo "✅ /compete skill installed!"
+```
+
+#### Option 4: Manual install via Clawpilot UI
 
 1. Open Clawpilot
 2. Go to **Settings → Skills → Create New Skill**
