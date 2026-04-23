@@ -7,7 +7,30 @@ description: "Deep technical cybersecurity competitive analysis — compare Micr
 # /compete — Cybersecurity Competitive Analysis Skill
 
 ## Purpose
-Produce a thorough, technically deep competitive analysis comparing **Microsoft Security** capabilities against a named competitor/vendor in the cybersecurity space. Every claim must be referenced with a source link for credibility verification.
+Produce a thorough, technically deep competitive analysis comparing **Microsoft Security** capabilities against a named competitor/vendor **in the cybersecurity space**. Every claim must be referenced with a source link for credibility verification.
+
+> 🛡️ **This is a CYBERSECURITY-ONLY skill.** It compares Microsoft's Security portfolio (Defender, Sentinel, Entra, Purview, Copilot for Security, etc.) against cybersecurity competitors. It does NOT cover general technology comparisons (e.g., Azure vs AWS compute, M365 vs Google Workspace productivity, Dynamics vs Salesforce CRM). If the user asks for a non-security comparison, inform them that this skill is scoped to cybersecurity and suggest they research the other domain separately.
+
+## Scope — Cybersecurity Domains Only
+
+This skill covers competitive analysis across these **cybersecurity domains**:
+
+| Domain | Microsoft Product | Example Competitors |
+|---|---|---|
+| Endpoint Security (EDR/XDR) | Defender for Endpoint, Defender XDR | CrowdStrike Falcon, SentinelOne, Palo Alto Cortex XDR |
+| SIEM / Security Analytics | Microsoft Sentinel | Splunk, IBM QRadar, Google Chronicle, Elastic SIEM |
+| Identity & Access (IAM/IGA) | Microsoft Entra ID | Okta, Ping Identity, CyberArk, SailPoint |
+| Cloud Security (CNAPP/CSPM/CWPP) | Defender for Cloud | Wiz, Palo Alto Prisma Cloud, Orca, Lacework |
+| Email & Collaboration Security | Defender for Office 365 | Proofpoint, Mimecast, Abnormal Security |
+| Network Security (SASE/SSE) | Entra Internet/Private Access | Zscaler, Palo Alto Prisma Access, Netskope |
+| Data Security / DLP | Microsoft Purview | Symantec DLP, Forcepoint, Digital Guardian |
+| Threat Intelligence | Microsoft Threat Intelligence | Recorded Future, Mandiant, CrowdStrike Intel |
+| Security Operations (SOAR) | Sentinel + Copilot for Security | Palo Alto XSOAR, Splunk SOAR, Swimlane |
+| IoT/OT Security | Defender for IoT | Claroty, Nozomi Networks, Armis |
+| Vulnerability Management | Defender Vulnerability Management | Tenable, Qualys, Rapid7 |
+| Security for AI | Defender for Cloud AI, Content Safety | Wiz AI-SPM, HiddenLayer, Protect AI |
+
+**Out of scope:** Azure infrastructure (compute, storage, networking), Microsoft 365 productivity (Teams, SharePoint, Exchange as collaboration tools), Dynamics 365, Power Platform, GitHub (unless GitHub Advanced Security for DevSecOps), Windows OS features (unless security-specific like BitLocker, Windows Hello).
 
 ## Trigger
 The user will say something like "/compete [Vendor Name]" or "/compete CrowdStrike" or "compare Microsoft vs Palo Alto in security". Extract the competitor name and begin the workflow.
@@ -341,6 +364,7 @@ If the user mentions a specific customer context, save the compete materials to 
 
 ## Important Guidelines
 
+- **Cybersecurity only** — This skill is exclusively for cybersecurity competitive analysis. If the competitor or comparison domain is not cybersecurity-related, stop and inform the user: "⚠️ /compete is scoped to cybersecurity. [Topic] is outside this skill's scope."
 - **Be technically deep** — this is for a Security Specialist, not a generalist. Include API details, architecture nuances, deployment models, and integration specifics.
 - **Be current** — always check for the latest announcements. The security landscape changes rapidly.
 - **Be honest** — never fabricate advantages. If Microsoft is behind in an area, say so and mention if it's on the roadmap.
