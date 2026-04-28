@@ -17,6 +17,19 @@ The user will say something like "/compete [Vendor Name]" or "/compete CrowdStri
 ### Phase 1: Gather Intelligence (parallel where possible)
 
 **1a. Internal Microsoft Intelligence**
+- **Internal Compete Portals** — Browse these for battle cards, playbooks, and competitive data:
+
+| Portal | URL | What to look for |
+|--------|-----|-------------------|
+| Security Compete Hub | https://aka.ms/securitycompete | Battle cards, competitive positioning |
+| MCAPS Compete Resources | https://aka.ms/mcapscompete | Field-ready compete decks, objection handling |
+| Security Compete Playbook | https://aka.ms/securitycompeteplaybook | Sales plays, win/loss analysis |
+| M365 Compete Center | https://aka.ms/m365compete | Licensing comparisons, feature matrices |
+| Defender Compete | https://aka.ms/defendercompete | Endpoint & XDR competitive intel |
+| Sentinel Compete | https://aka.ms/sentinelcompete | SIEM/SOAR competitive positioning |
+| Seismic Compete Content | https://microsoft.seismic.com/apps/doccenter/ac87b24f-8f93-43d4-be30-469d80d63c18/doc/%252Fddede3166e-02c7-9b96-dd45-fabc8e27d5f4%252FdfYTZjNDRiZDMtMzEwZS1kNWZkLTNjOGEtNjliYWJjMjhmMmUw%252CPT0%253D%252CUmVzb3VyY2UgUGFnZQ%253D%253D%252Flfd6ecf109-5e8a-4182-9448-12cf00211582// | Sales enablement compete content, customer-facing battle cards |
+| Gartner/Forrester (internal) | Via aka.ms/gartneraccess | Analyst reports, Magic Quadrants, Waves |
+
 - Search the user's M365 data (emails, Teams chats, meetings, OneDrive/SharePoint files) for any prior competitive intelligence, battle cards, or internal discussions about this competitor:
   - Use WorkIQ: `workiq.cmd ask -q "competitive analysis [competitor] cybersecurity"` and `workiq.cmd ask -q "[competitor] battle card security"`
   - Search emails: `m365_search_emails` for emails mentioning the competitor name
